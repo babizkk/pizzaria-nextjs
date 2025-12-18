@@ -23,11 +23,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={firaSans.className}>
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="bg-white rounded-[40px] shadow-lg p-8">
-            <Navbar />
-            {children}
-          </div>
+        <div className="main-container">
+          <Navbar />
+          {children}
         </div>
       </body>
     </html>

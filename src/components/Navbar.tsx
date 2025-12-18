@@ -3,9 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
+  const pathname = usePathname();
 
 
   useEffect(() => {
@@ -21,67 +23,76 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-white rounded-3xl shadow-sm px-8 py-4 mb-6">
-      <div className="flex items-center justify-between">
-        <Link href="/" className="flex items-center">
+    <header className="nav-bar">
+      <div className="pizza-icon-navbar">
+        <Link href="/">
           <Image
             src="/images/logo.png"
             alt="Pizza Logo"
-            width={70}
-            height={70}
+            width={100}
+            height={100}
             className="object-contain"
           />
         </Link>
+      </div>
 
-        <div className="flex items-center gap-8">
-          <Link
-            href="/menu"
-            className="text-gray-700 hover:text-red-500 font-medium transition-colors"
+      <div className="redirect-links">
+        <div className="options-list">
+          <Link 
+            href="/menu" 
+            className={pathname === '/menu' ? 'option-2' : 'option-1'}
           >
             Menu
           </Link>
-          <Link
-            href="/"
-            className="text-gray-700 hover:text-red-500 font-medium transition-colors"
+          <Link 
+            href="/" 
+            className={pathname === '/' ? 'option-2' : 'option-1'}
           >
             Home
           </Link>
-          <Link
-            href="/promotions"
-            className="text-gray-700 hover:text-red-500 font-medium transition-colors"
-          >
-            Promotions
-          </Link>
+          <p className="option-3">
+            Promo
+          </p>
 
-          <button className="relative">
+          <Link href="/menu">
             <Image
               src="/images/search.png"
               alt="Search"
-              width={20}
-              height={20}
+              width={25}
+              height={25}
+              className="search-icon"
             />
-          </button>
-
-          <button className="relative cart-icon-container">
+          </Link>
+          
+          <button className="cart-icon-container relative" style={{background: 'none', border: 'none', padding: 0}}>
             <Image
               src="/images/cart.png"
               alt="Cart"
-              width={24}
-              height={24}
+              width={25}
+              height={25}
               className="cart-icon"
             />
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse">
+              <span 
+                className="absolute bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+                style={{
+                  top: '-8px',
+                  right: '25px',
+                  fontSize: '10px',
+                  minWidth: '20px',
+                  height: '20px'
+                }}
+              >
                 {cartCount}
               </span>
             )}
           </button>
 
-          <button className="bg-red-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-red-600 transition-colors">
+          <button className="sign-in-button">
             SIGN IN
           </button>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

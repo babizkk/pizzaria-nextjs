@@ -1,0 +1,58 @@
+/* Header/Hero section styles */
+.header-homepage {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.header-content {
+  flex-basis: 45%;
+  margin-left: 40px;
+}
+
+.friday-pizza {
+  font-size: 4rem; 
+  font-weight: 700;
+  color: #013220;
+  margin-bottom: -15px;
+}
+
+.friday-pizza-subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #013220; 
+  margin-bottom: 30px;
+}
+
+.order-button {
+  background-color: red;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 300; 
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 15px rgba(226, 62, 62, 0.4);
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.order-button:hover {
+  background-color: #c03333;
+  box-shadow: 0 10px 20px rgba(226, 62, 62, 0.6); 
+}
+
+.header-image {
+  flex-basis: 60%; 
+  display: flex;
+  justify-content: flex-end;
+  margin-right: -30px;
+  margin-left: -40px;
+}
+
+.pizza-header-image {
+  max-width: 100%; 
+  height: auto;
+}

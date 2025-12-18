@@ -13,6 +13,19 @@ interface PizzaCardProps {
 export default function PizzaCard({ pizza, onAddToCart }: PizzaCardProps) {
   const [selectedSize, setSelectedSize] = useState("regular");
   const imageRef = useRef<HTMLImageElement>(null);
+  
+  // Cores alinhadas com a identidade visual do projeto (tons mais claros)
+  const getCardColors = (pizzaId: string) => {
+    const colors = {
+      'cheese-lovers': 'from-orange-25 to-red-25 border-orange-100',
+      'pepperoni': 'from-red-25 to-orange-25 border-red-100', 
+      'margherita': 'from-red-25 to-pink-25 border-red-100',
+      'hawaiian': 'from-orange-25 to-yellow-25 border-orange-100',
+      'meat-lovers': 'from-red-25 to-red-50 border-red-100',
+      'veggie-supreme': 'from-orange-25 to-green-25 border-orange-100'
+    };
+    return colors[pizzaId as keyof typeof colors] || 'from-red-25 to-orange-25 border-red-100';
+  };
 
   const handleAddToCart = useCallback(() => {
 
@@ -88,7 +101,7 @@ export default function PizzaCard({ pizza, onAddToCart }: PizzaCardProps) {
   }, [pizza, selectedSize, onAddToCart]);
 
   return (
-    <article className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+    <article className={`bg-gradient-to-br ${getCardColors(pizza.id)} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border-2`}>
       <figure className="mb-4 flex justify-center">
         <Image
           ref={imageRef}
@@ -105,7 +118,7 @@ export default function PizzaCard({ pizza, onAddToCart }: PizzaCardProps) {
         {pizza.description}
       </p>
 
-      <p className="text-2xl font-bold text-red-500 mb-4">
+      <p className="text-2xl font-bold text-green-500 mb-4">
         ${pizza.price.toFixed(2)}
       </p>
 
