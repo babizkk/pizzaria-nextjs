@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
 
-  // Listener para atualizar contador quando item é adicionado
+
   useEffect(() => {
     const handleCartUpdate = () => {
       setCartCount(prev => prev + 1);
@@ -27,8 +27,8 @@ export default function Navbar() {
           <Image
             src="/images/logo.png"
             alt="Pizza Logo"
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             className="object-contain"
           />
         </Link>
@@ -47,10 +47,10 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            href="/promocoes"
+            href="/promotions"
             className="text-gray-700 hover:text-red-500 font-medium transition-colors"
           >
-            Promoções
+            Promotions
           </Link>
 
           <button className="relative">

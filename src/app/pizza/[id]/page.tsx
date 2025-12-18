@@ -4,10 +4,6 @@ import { notFound } from "next/navigation";
 import { pizzas } from "@/data/pizzas";
 import AddToCartButton from "@/components/AddToCartButton";
 
-// SSG com rotas dinâmicas
-// generateStaticParams gera todas as páginas possíveis em build time
-// Justificativa: Número fixo de pizzas, conteúdo estático, SEO otimizado
-
 export async function generateStaticParams() {
   return pizzas.map((pizza) => ({
     id: pizza.id,
@@ -31,13 +27,14 @@ export default function PizzaDetailsPage({ params }: PageProps) {
     <main className="py-8">
       <Link
         href="/menu"
-        className="inline-flex items-center text-red-500 hover:text-red-600 mb-6"
+        className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 px-4 py-2 rounded-full font-medium transition-all duration-200 mb-6 group"
       >
-        ← Voltar ao Menu
+        <span className="text-lg group-hover:-translate-x-1 transition-transform duration-200">←</span>
+        Back to Menu
       </Link>
 
       <div className="grid md:grid-cols-2 gap-12">
-        {/* Image Section */}
+
         <div className="flex justify-center items-center">
           <Image
             src={pizza.image}
@@ -49,7 +46,7 @@ export default function PizzaDetailsPage({ params }: PageProps) {
           />
         </div>
 
-        {/* Info Section */}
+
         <div>
           <div className="bg-orange-100 text-orange-800 inline-block px-4 py-1 rounded-full text-sm font-semibold mb-4">
             {pizza.category}
@@ -60,7 +57,7 @@ export default function PizzaDetailsPage({ params }: PageProps) {
           <p className="text-xl text-gray-600 mb-6">{pizza.description}</p>
 
           <div className="mb-6">
-            <h3 className="font-bold text-lg mb-3">Ingredientes:</h3>
+            <h3 className="font-bold text-lg mb-3">Ingredients:</h3>
             <ul className="space-y-2">
               {pizza.ingredients.map((ingredient, index) => (
                 <li key={index} className="flex items-center gap-2">
@@ -72,7 +69,7 @@ export default function PizzaDetailsPage({ params }: PageProps) {
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
-            <p className="text-sm text-gray-600 mb-2">Preço</p>
+            <p className="text-sm text-gray-600 mb-2">Price</p>
             <p className="text-4xl font-bold text-red-500">
               ${pizza.price.toFixed(2)}
             </p>
@@ -85,42 +82,28 @@ export default function PizzaDetailsPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Nutritional Info */}
+
       <section className="mt-12 bg-gray-50 rounded-2xl p-8">
-        <h2 className="text-2xl font-bold mb-6">Informações Nutricionais</h2>
+        <h2 className="text-2xl font-bold mb-6">Nutritional Information</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">320</p>
-            <p className="text-gray-600">Calorias</p>
+            <p className="text-gray-600">Calories</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">12g</p>
-            <p className="text-gray-600">Proteína</p>
+            <p className="text-gray-600">Protein</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">35g</p>
-            <p className="text-gray-600">Carboidratos</p>
+            <p className="text-gray-600">Carbs</p>
           </div>
           <div className="text-center">
             <p className="text-3xl font-bold text-red-500">15g</p>
-            <p className="text-gray-600">Gordura</p>
+            <p className="text-gray-600">Fat</p>
           </div>
         </div>
       </section>
-
-      {/* Info Box */}
-      <div className="mt-12 bg-purple-50 border border-purple-200 rounded-lg p-6">
-        <h3 className="font-bold text-lg mb-2 text-purple-900">
-          🎯 Sobre esta página (Rota Dinâmica + SSG)
-        </h3>
-        <p className="text-purple-800 text-sm">
-          Esta é uma <strong>rota dinâmica</strong> usando{" "}
-          <strong>SSG com generateStaticParams</strong>. Todas as páginas de
-          detalhes de pizzas foram geradas estaticamente no build time,
-          oferecendo performance máxima e SEO perfeito. A URL muda baseada no
-          ID da pizza, mas o conteúdo foi pré-renderizado.
-        </p>
-      </div>
     </main>
   );
 }

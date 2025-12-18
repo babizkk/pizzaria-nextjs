@@ -18,7 +18,7 @@ export default function AddToCartButton({
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleAddToCart = () => {
-    // Pegar a imagem principal da página
+
     const mainImage = document.querySelector('.pizza-detail-image') as HTMLElement;
     const cartIcon = document.querySelector('.cart-icon-container');
     
@@ -28,7 +28,7 @@ export default function AddToCartButton({
       const imgRect = mainImage.getBoundingClientRect();
       const cartRect = cartIcon.getBoundingClientRect();
 
-      // Estilizar o clone
+
       imgClone.style.position = 'fixed';
       imgClone.style.left = imgRect.left + 'px';
       imgClone.style.top = imgRect.top + 'px';
@@ -41,7 +41,7 @@ export default function AddToCartButton({
       
       document.body.appendChild(imgClone);
 
-      // Animar até o carrinho
+
       setTimeout(() => {
         imgClone.style.left = cartRect.left + cartRect.width / 2 + 'px';
         imgClone.style.top = cartRect.top + cartRect.height / 2 + 'px';
@@ -50,22 +50,22 @@ export default function AddToCartButton({
         imgClone.style.opacity = '0.5';
       }, 50);
 
-      // Remover clone e animar carrinho
+
       setTimeout(() => {
         imgClone.remove();
         
-        // Trigger bounce no carrinho
+
         cartIcon.classList.add('cart-bounce');
         setTimeout(() => {
           cartIcon.classList.remove('cart-bounce');
         }, 400);
 
-        // Atualizar contador do carrinho
+
         window.dispatchEvent(new Event('cart-updated'));
       }, 1000);
     }
 
-    // Callback
+
     if (onAddToCart) {
       onAddToCart();
     }
@@ -75,7 +75,7 @@ export default function AddToCartButton({
     <div className="space-y-4">
       <div>
         <label className="block font-semibold mb-2">
-          Escolha o tamanho:
+          Choose size:
         </label>
         <select 
           value={selectedSize}
@@ -92,7 +92,7 @@ export default function AddToCartButton({
         onClick={handleAddToCart}
         className="w-full bg-red-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-red-600 transition-colors active:scale-95"
       >
-        ADICIONAR AO CARRINHO
+        ADD TO CART
       </button>
     </div>
   );

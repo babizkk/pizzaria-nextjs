@@ -29,7 +29,7 @@ export default function SearchBar({ searchTerm, onSearchChange }: SearchBarProps
       </div>
       {searchTerm && (
         <p className="text-center text-sm text-gray-600 mt-2">
-          Buscando por: <span className="font-semibold">"{searchTerm}"</span>
+          Searching for: <span className="font-semibold">"{searchTerm}"</span>
         </p>
       )}
     </div>

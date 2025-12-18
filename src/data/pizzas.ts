@@ -16,7 +16,7 @@ export const pizzas: Pizza[] = [
     price: 20.00,
     image: "/images/cheese.png",
     ingredients: ["Alfredo sauce", "Romano cheese", "Parmesan cheese"],
-    category: "Clássicas"
+    category: "Classic"
   },
   {
     id: "2",
@@ -25,7 +25,7 @@ export const pizzas: Pizza[] = [
     price: 25.00,
     image: "/images/pepperoni.png",
     ingredients: ["Spicy beef sausage", "Tomato sauce", "Mozzarella"],
-    category: "Especiais"
+    category: "Special"
   },
   {
     id: "3",
@@ -34,6 +34,6 @@ export const pizzas: Pizza[] = [
     price: 35.00,
     image: "/images/margherita.png",
     ingredients: ["San Marzano tomatoes", "Mozzarella cheese", "Fresh basil"],
-    category: "Clássicas"
+    category: "Classic"
   }
 ];

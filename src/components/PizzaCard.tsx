@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Pizza } from "@/data/pizzas";
 
 interface PizzaCardProps {
@@ -14,76 +14,91 @@ export default function PizzaCard({ pizza, onAddToCart }: PizzaCardProps) {
   const [selectedSize, setSelectedSize] = useState("regular");
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const handleAddToCart = () => {
-    // Trigger animação
-    if (imageRef.current) {
-      const cartIcon = document.querySelector('.cart-icon-container');
-      
-      if (cartIcon) {
-        const pizzaImg = imageRef.current;
-        const imgClone = pizzaImg.cloneNode(true) as HTMLElement;
-        
-        const imgRect = pizzaImg.getBoundingClientRect();
-        const cartRect = cartIcon.getBoundingClientRect();
+  const handleAddToCart = useCallback(() => {
 
-        // Estilizar o clone
-        imgClone.style.position = 'fixed';
-        imgClone.style.left = imgRect.left + 'px';
-        imgClone.style.top = imgRect.top + 'px';
-        imgClone.style.width = pizzaImg.offsetWidth + 'px';
-        imgClone.style.height = pizzaImg.offsetHeight + 'px';
-        imgClone.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-        imgClone.style.zIndex = '9999';
-        imgClone.style.borderRadius = '50%';
-        imgClone.style.pointerEvents = 'none';
-        
-        document.body.appendChild(imgClone);
-
-        // Animar até o carrinho
-        setTimeout(() => {
-          imgClone.style.left = cartRect.left + cartRect.width / 2 + 'px';
-          imgClone.style.top = cartRect.top + cartRect.height / 2 + 'px';
-          imgClone.style.width = '0px';
-          imgClone.style.height = '0px';
-          imgClone.style.opacity = '0.5';
-        }, 50);
-
-        // Remover clone e animar carrinho
-        setTimeout(() => {
-          imgClone.remove();
-          
-          // Trigger bounce no carrinho
-          cartIcon.classList.add('cart-bounce');
-          setTimeout(() => {
-            cartIcon.classList.remove('cart-bounce');
-          }, 400);
-
-          // Atualizar contador do carrinho
-          window.dispatchEvent(new Event('cart-updated'));
-        }, 1000);
-      }
-    }
-
-    // Callback
     if (onAddToCart) {
       onAddToCart(pizza, selectedSize);
     }
-  };
+
+
+    if (typeof window !== 'undefined' && imageRef.current) {
+      try {
+        const cartIcon = document.querySelector('.cart-icon-container');
+        
+        if (cartIcon) {
+          const pizzaImg = imageRef.current;
+          const imgClone = pizzaImg.cloneNode(true) as HTMLElement;
+          
+          const imgRect = pizzaImg.getBoundingClientRect();
+          const cartRect = cartIcon.getBoundingClientRect();
+
+
+          imgClone.style.position = 'fixed';
+          imgClone.style.left = imgRect.left + 'px';
+          imgClone.style.top = imgRect.top + 'px';
+          imgClone.style.width = pizzaImg.offsetWidth + 'px';
+          imgClone.style.height = pizzaImg.offsetHeight + 'px';
+          imgClone.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+          imgClone.style.zIndex = '9999';
+          imgClone.style.borderRadius = '50%';
+          imgClone.style.pointerEvents = 'none';
+          
+          document.body.appendChild(imgClone);
+
+
+          setTimeout(() => {
+            imgClone.style.left = cartRect.left + cartRect.width / 2 + 'px';
+            imgClone.style.top = cartRect.top + cartRect.height / 2 + 'px';
+            imgClone.style.width = '0px';
+            imgClone.style.height = '0px';
+            imgClone.style.opacity = '0.5';
+          }, 50);
+
+
+          setTimeout(() => {
+            if (document.body.contains(imgClone)) {
+              imgClone.remove();
+            }
+            
+
+            cartIcon.classList.add('cart-bounce');
+            setTimeout(() => {
+              cartIcon.classList.remove('cart-bounce');
+            }, 400);
+
+
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new Event('cart-updated'));
+            }
+          }, 1000);
+        } else {
+
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('cart-updated'));
+          }
+        }
+      } catch (error) {
+        console.warn('Animation error:', error);
+
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('cart-updated'));
+        }
+      }
+    }
+  }, [pizza, selectedSize, onAddToCart]);
 
   return (
     <article className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-      <Link href={`/pizza/${pizza.id}`}>
-        <figure className="mb-4 flex justify-center">
-          <Image
-            ref={imageRef}
-            src={pizza.image}
-            alt={pizza.name}
-            width={200}
-            height={200}
-            className="object-contain hover:scale-105 transition-transform"
-          />
-        </figure>
-      </Link>
+      <figure className="mb-4 flex justify-center">
+        <Image
+          ref={imageRef}
+          src={pizza.image}
+          alt={pizza.name}
+          width={200}
+          height={200}
+          className="object-contain"
+        />
+      </figure>
 
       <h3 className="text-xl font-bold mb-2">{pizza.name}</h3>
       <p className="text-gray-600 text-sm mb-4 min-h-[40px]">
@@ -110,12 +125,20 @@ export default function PizzaCard({ pizza, onAddToCart }: PizzaCardProps) {
         </select>
       </div>
 
-      <button
-        onClick={handleAddToCart}
-        className="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors"
-      >
-        ADD TO CART
-      </button>
+      <div className="flex gap-2">
+        <Link 
+          href={`/pizza/${pizza.id}`}
+          className="flex-1 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white py-3 rounded-lg font-semibold transition-all duration-200 text-center shadow-md hover:shadow-lg transform hover:scale-105"
+        >
+          VIEW DETAILS
+        </Link>
+        <button
+          onClick={handleAddToCart}
+          className="flex-1 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors"
+        >
+          ADD TO CART
+        </button>
+      </div>
     </article>
   );
 }

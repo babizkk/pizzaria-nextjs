@@ -2,16 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { pizzas } from "@/data/pizzas";
 
-// SSG: Esta página é gerada estaticamente em build time
-// Justificativa: Conteúdo estático (hero section) que não muda frequentemente
-// Melhor performance (HTML pré-renderizado), SEO otimizado, tempo de carregamento mínimo
-
 export default function Home() {
   const featuredPizzas = pizzas.slice(0, 3);
 
   return (
     <main>
-      {/* Hero Section */}
+
       <section className="flex items-center justify-between py-12 px-8">
         <div className="max-w-xl">
           <h1 className="text-6xl font-black text-gray-800 mb-4">
@@ -39,10 +35,10 @@ export default function Home() {
         </figure>
       </section>
 
-      {/* Featured Pizzas Preview */}
+
       <section className="py-12 px-8">
         <h2 className="text-3xl font-bold text-center mb-8">
-          Pizzas em Destaque
+          Featured Pizzas
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {featuredPizzas.map((pizza) => (
@@ -70,24 +66,10 @@ export default function Home() {
         <div className="text-center">
           <Link
             href="/menu"
-            className="inline-block text-red-500 font-semibold hover:underline"
+            className="inline-block bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            Ver menu completo →
+            View full menu
           </Link>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-12 px-8 bg-gray-50 rounded-3xl">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            A Melhor Pizza da Cidade
-          </h2>
-          <p className="text-gray-700 leading-relaxed">
-            Há mais de 10 anos servindo as melhores pizzas com ingredientes
-            frescos e massa artesanal. Nossa missão é proporcionar momentos
-            deliciosos para você e sua família.
-          </p>
         </div>
       </section>
     </main>
