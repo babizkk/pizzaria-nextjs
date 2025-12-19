@@ -40,7 +40,7 @@ http://localhost:3000
 
 Este projeto consiste em uma aplicação web de pizzaria desenvolvida com Next.js, utilizando TypeScript, React e Tailwind CSS. A aplicação apresenta um catálogo de pizzas com funcionalidades de navegação, visualização de detalhes e funcionalidade de busca.
 
-O projeto foi migrado para Next.js com o objetivo de aproveitar os recursos modernos de renderização do framework, incluindo Server Components, Static Site Generation (SSG), Incremental Static Regeneration (ISR) e Client-Side Rendering (CSR). A migração permitiu otimizar o desempenho da aplicação através da escolha estratégica do tipo de renderização mais adequado para cada página, resultando em melhor performance, SEO e experiência do usuário.
+O projeto foi migrado para Next.js com o objetivo de aproveitar os recursos modernos de renderização do framework, incluindo Server Components, Static Site Generation (SSG) e Incremental Static Regeneration (ISR). A migração permitiu otimizar o desempenho da aplicação através da escolha estratégica do tipo de renderização mais adequado para cada página, resultando em melhor performance, SEO e experiência do usuário.
 
 ## Lista de Páginas e Tipos de Renderização
 
@@ -58,7 +58,7 @@ O projeto foi migrado para Next.js com o objetivo de aproveitar os recursos mode
 
 ### 3. Detalhes da Pizza (/pizza/[id])
 
-**Tipo de renderização:** Static Site Generation (SSG)
+**Tipo de renderização:** Static Site Generation (SSG) com Rotas Dinâmicas
 
 **Justificativa:** Esta página utiliza generateStaticParams() para pré-renderizar todas as páginas de detalhes de pizzas no momento do build. SSG foi escolhido porque os dados das pizzas são relativamente estáticos e o conteúdo não muda frequentemente. Pré-gerar todas as páginas resulta em tempos de carregamento instantâneos, melhor SEO (conteúdo totalmente renderizado para crawlers) e redução de carga no servidor. A página ainda inclui um Client Component (AddToCartButton) para interatividade, demonstrando a composição híbrida Server/Client do Next.js.
 
